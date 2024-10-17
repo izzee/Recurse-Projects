@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  gap: 10vw;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  background-image: url('./skin.jpg');
+  background-size: 200px;
+  box-shadow: 0 0 80px purple inset;
+  position: relative;
+}
+
+.lightning {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-image: url('./lightning.gif');
+  mix-blend-mode: screen;
+  background-size: 100px;
+  box-shadow: 0 0 160px 40px blue inset;
+}
+
+.eye-wrapper {
+  position: relative;
+  overflow:hidden;
+  border-radius: 100%;
+  width: 25vw;
+  height: 25vw;
+  box-shadow: 0 0 80px purple;
+}
+
+.eye {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  background-image: url('./eyeveins.jpg');
+  background-size: cover;
+  transition: transform .25s;
+  border-radius: 100%;
+  box-shadow: 0 0 8px 4px brown inset;
+}
+
+.pupil {
+  mix-blend-mode: multiply;
+  border-radius: 100%;
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  box-shadow: 0 0 24px 8px brown, 0 0 4px 8px pink inset;
+  transition: transform .25s;
+}

@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  width: 100vw;
+}
+
+.mouth {
+  width: 400px;
+  height: 240px;
+  background-image: url('./mouths.jpg');
+  background-size: 1992px 2482px;
+  background-position: -1516px -2210px;
+  box-shadow: 0 0 24px 24px black inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    color: #fff;
+    font-size: 24px;
+    text-transform: uppercase;
+    mix-blend-mode: difference;
+  }
+}
+
+.input-wrapper {
+  width: 400px;
+  height: 40px;
+  display: flex;
+  gap: 24px;
+  
+  input {
+    padding: 0  8px;
+    flex: 3;
+    outline: 0;
+    background-color: #000;
+    font-family: monospace;
+    color: #fff;
+  }
+  button {
+    flex: 1;
+    font-family: monospace;
+  }
+}
+
+.eyes {
+  display: flex;
+  width: 400px;
+
+  img {
+    
+    width: 200px;
+  }
+  img:last-child {
+    transform: scaleX(-1);
+  }
+}

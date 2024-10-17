@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/addons/p5.sound.min.js"></script>
+  <link rel="stylesheet" href="./styles.css">
+  <title>TTS</title>
+</head>
+<body>
+
+  <input type="text" class="text" placeholder="Type here"></input>
+  <button class="sound">Click to Speak</button>
+  </div>
+
+  <script>
+    let letterSounds = {}
+    const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    const soundBtn = document.querySelectorAll('.sound')
+    const textArea = document.querySelector('input.text')
+
+    soundBtn.forEach(btn => btn.addEventListener('click', makeSound))
+
+    function preload() {
+      soundFormats('wav');
+      letters.forEach(letter => {
+        letterSounds[letter] = loadSound(`./sounds/${letter}`);
+        letterSounds[letter].disconnect();
+      }) 
+    }
+
+    function setup() {
+      myPart = new p5.Part();
+      myPart.setBPM(120);
+      reverb = new p5.Reverb();
+      
+    }
+    
+    function endPlayback() {
+      myPart.removePhrase('phrase')
+      myPart.stop()
+    }
+
+    function onEachStep(time, playbackObj) {
+      const { rate, letter, isLast } = playbackObj 
+      const ls = letterSounds[letter]
+      
+      if (ls) {
+        ls.stop();
+        ls.playMode('restart')
+        ls.rate(rate);
+        reverb.process(ls, 2, 50);
+        reverb.amp(5);
+        ls.play(time);
+      }
+      if (isLast) {
+        endPlayback()
+      }
+    }
+
+    function makeSound(event) {
+      const word = textArea.value.toLowerCase().split('')
+      
+      const pattern = word.map((letter, index) => {
+        const rate = Math.random()
+        return {
+          letter,
+          rate: letter === ' ' ? 0 : rate,
+          isLast: index === word.length -1 
+        }
+      })
+      
+      
+      myPhrase = new p5.Phrase('phrase', onEachStep, pattern);
+      console.log('................................................................', myPhrase, myPart)
+      myPart.addPhrase(myPhrase);
+      userStartAudio();
+      myPart.loop()
+      myPart.start();
+    }
+  </script>
+</body>
+</html>
